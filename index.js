@@ -6,34 +6,33 @@
  * @return {Boolean} if contestant won or not
  */
 function montyHall(numDoors, willSwitch) {
-  // Sets up the random winning door and the choice
-  // by adding one because geRandomInt has an exclusive upper limit
-  var winningDoor = getRandomInt(1, numDoors + 1);
-  var choice = getRandomInt(1, numDoors + 1);
 
-  // Gets an array of all the doors. Does not need to add one
-  // because the range function is inclusive
-  var doors = range(1, numDoors);
+  var doors = falseArray(numDoors);
+  var winningDoorIndex = getRandomInt(0, numDoors - 1);
+  var choiceIndex = getRandomInt(0, numDoors - 1);
 
-  while (doors.length > 2) {
-    // obtains the door to open by monty
-    var doorToOpenIndex = getRandomInt(1, doors.length + 1);
-    var doorToOpen = doors[doorToOpenIndex];
+  /**
+   * Creates a door with the prize in it
+   */
+  doors[winningDoorIndex] = true;
+  var chosen = doors[choiceIndex];
 
-    // if the door is the winning one, remove it from the
-    // doors array
-    if (doorToOpen === winningDoor && doorToOpen === choice) {
-      doors.splice(doorToOpenIndex, 1);
-    }
-  }
+  var unpickedDoors = doors;
+  unpickedDoors.splice(choiceIndex, 1);
 
-  // If the contestant wants to switch, switches the doors
+  /**
+  *  Out of those unpicked, the alternative is either:
+  *  the prize door, or
+  *  an empty door if the initial choice is actually the prize.
+  */
+  var alternative = (unpickedDoors.indexOf(true) > -1);
+
   if (willSwitch) {
-    choice = (doors[1] === choice && doors[2] || doors[1]);
+    return alternative;
   }
-
-  // returns whether or not the choice was the winning door
-  return (choice === winningDoor)
+  else {
+    return chosen;
+  }
 
 }
 
@@ -49,15 +48,14 @@ function getRandomInt(min, max) {
 }
 
 /**
- * Creates an array of a range of numbers with both ends inclusive
- * @param start {Integer} inclusive lower limit
- * @param end {Integer} exclusive upper limit
- * @return {Array} array of integers
+ * Creates an array of false booleans given a size of the array
+ * @param n {Integer} upper limit of array (inclusive)
+ * @return {Array} array of false booleans
  */
-function range(start, end) {
+function falseArray(n) {
     var foo = [];
-    for (var i = start; i <= end; i++) {
-        foo.push(i);
+    for (var i = 0; i < n; i++) {
+        foo.push(false);
     }
     return foo;
 }
