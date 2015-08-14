@@ -12,7 +12,7 @@ test('over 66% winning probability with switch and 3 doors', function (t) {
     var results = [];
     var iterations = 10000;
     for (var i = 0; i < iterations; i++) {
-      results.push(montyHall(3, true));
+      results.push(montyHall.simulate(3, true));
     }
 
     // Number of times you succeed by switching
@@ -24,5 +24,7 @@ test('over 66% winning probability with switch and 3 doors', function (t) {
     var successProbability = (numSuccesses / iterations) * 100;
 
     t.equal(successProbability > 66, true);
+
+    montyHall.simulateIterations(3, true, 100);
     t.end();
 });

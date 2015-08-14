@@ -1,40 +1,71 @@
 
+
+module.exports.simulate = montyHall;
+
 /**
- * Monty Hall Simulator
- * @param numDoors {Integer} Number of doors in simulation
- * @param willSwitch {Boolean} if contestant wants to switch or not
- * @return {Boolean} if contestant won or not
+ * Simulates monty hall over a given number of iterations
  */
-function montyHall(numDoors, willSwitch) {
+module.exports.simulateIterations = function (numDoors, willSwitch, iterations) {
+   var results = [];
+   for (var i = 0; i < iterations; i++) {
+     results.push(montyHall(numDoors, willSwitch));
+   }
 
-  var doors = falseArray(numDoors);
-  var winningDoorIndex = getRandomInt(0, numDoors - 1);
-  var choiceIndex = getRandomInt(0, numDoors - 1);
+   var numSuccesses = results.filter(function (x) {
+     return x === true;
+   }).length;
 
-  /**
-   * Creates a door with the prize in it
-   */
-  doors[winningDoorIndex] = true;
-  var chosen = doors[choiceIndex];
+   var successProbability = (numSuccesses / iterations) * 100;
 
-  var unpickedDoors = doors;
-  unpickedDoors.splice(choiceIndex, 1);
+   if (willSwitch) {
+     console.log('With ' + iterations + ' iterations and by switching');
+   }
+   else {
+     console.log('With ' + iterations + ' and by not switching');
+   }
+   console.log('With ' + numDoors + ' doors\n');
+   console.log('You succeeded ' + numSuccesses + ' times');
+   console.log('With a success percentage of ' + successProbability + '%\n');
 
-  /**
-  *  Out of those unpicked, the alternative is either:
-  *  the prize door, or
-  *  an empty door if the initial choice is actually the prize.
+ };
+
+
+ /**
+  * Monty Hall Simulator
+  * @param numDoors {Integer} Number of doors in simulation
+  * @param willSwitch {Boolean} if contestant wants to switch or not
+  * @return {Boolean} if contestant won or not
   */
-  var alternative = (unpickedDoors.indexOf(true) > -1);
+ function montyHall(numDoors, willSwitch) {
 
-  if (willSwitch) {
-    return alternative;
-  }
-  else {
-    return chosen;
-  }
+   var doors = falseArray(numDoors);
+   var winningDoorIndex = getRandomInt(0, numDoors - 1);
+   var choiceIndex = getRandomInt(0, numDoors - 1);
 
-}
+   /**
+    * Creates a door with the prize in it
+    */
+   doors[winningDoorIndex] = true;
+   var chosen = doors[choiceIndex];
+
+   var unpickedDoors = doors;
+   unpickedDoors.splice(choiceIndex, 1);
+
+   /**
+   *  Out of those unpicked, the alternative is either:
+   *  the prize door, or
+   *  an empty door if the initial choice is actually the prize.
+   */
+   var alternative = (unpickedDoors.indexOf(true) > -1);
+
+   if (willSwitch) {
+     return alternative;
+   }
+   else {
+     return chosen;
+   }
+
+ }
 
 /**
  * Returns a random integer between min (inclusive) and max (inclusive)
@@ -59,5 +90,3 @@ function falseArray(n) {
     }
     return foo;
 }
-
-module.exports = montyHall;
