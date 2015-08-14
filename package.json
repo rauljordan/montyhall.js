@@ -10,6 +10,10 @@
     "probability",
     "statistics"
   ],
+  "repository" : {
+    "type" : "git",
+    "url" : "http://github.com/rauljordan/montyhall.js.git"
+  },
   "author": "Raul E. Jordan",
   "license": "MIT",
   "devDependencies": {
