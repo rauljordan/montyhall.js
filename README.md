@@ -41,8 +41,8 @@ montyhall.simulateIterations(numberOfDoors, willSwitch, numberOfIterations)
 
 ```sh
 $ var montyhall = require('montyhall')
-$ montyhall.simulateIterations(3, true, 1000)
-$ With 1000 iterations and by switching
+$ montyhall.simulateIterations(3, true, 100)
+$ With 100 iterations and by switching
   With 3 doors
 
   You succeeded 67 times
