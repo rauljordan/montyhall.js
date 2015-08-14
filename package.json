@@ -1,5 +1,5 @@
 {
-  "name": "montyhall.js",
+  "name": "montyhall",
   "version": "1.0.0",
   "description": "a node package that models the monty hall problem from probability",
   "main": "index.js",
@@ -14,7 +14,7 @@
     "type" : "git",
     "url" : "http://github.com/rauljordan/montyhall.js.git"
   },
-  "author": "Raul E. Jordan",
+  "author": "rauljordan",
   "license": "MIT",
   "devDependencies": {
     "tape": "*"
